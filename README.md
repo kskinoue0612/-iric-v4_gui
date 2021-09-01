@@ -1,1 +1,1 @@
-# iricv4_solver
+# This is a sample solver for the iRIC software version4.0.

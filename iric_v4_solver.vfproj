@@ -49,5 +49,9 @@
 		<File RelativePath=".\src\iric.f90"/>
 		<File RelativePath=".\src\main.f90"/></Filter>
 		<Filter Name="ヘッダーファイル" Filter="fi;fd;h;inc"/>
-		<Filter Name="リソースファイル" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/></Files>
+		<Filter Name="リソースファイル" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<File RelativePath=".\build.bat"/>
+		<File RelativePath=".\LICENSE"/>
+		<File RelativePath=".\make.bat"/>
+		<File RelativePath=".\README.md"/></Files>
 	<Globals/></VisualStudioProject>
