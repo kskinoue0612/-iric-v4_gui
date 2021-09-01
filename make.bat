@@ -5,5 +5,8 @@ ifort src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
 
 ifort *.obj lib\iriclib.lib -o a.exe
 
+del *.obj
+del *.mod
 
+move a.exe .\INSTALL\bin\
 

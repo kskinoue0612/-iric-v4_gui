@@ -51,6 +51,7 @@
 		<Filter Name="ヘッダーファイル" Filter="fi;fd;h;inc"/>
 		<Filter Name="リソースファイル" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<File RelativePath=".\build.bat"/>
+		<File RelativePath=".\go.bat"/>
 		<File RelativePath=".\LICENSE"/>
 		<File RelativePath=".\make.bat"/>
 		<File RelativePath=".\README.md"/></Files>
