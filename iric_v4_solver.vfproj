@@ -45,14 +45,14 @@
 				<Tool Name="VFPostBuildEventTool"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
-		<Filter Name="ソースファイル" Filter="f90;for;f;fpp;ftn;def;odl;idl">
+		<Filter Name="INSTALL">
+		<Filter Name="bin">
+		<File RelativePath=".\INSTALL\bin\definition.xml"/>
+		<File RelativePath=".\INSTALL\bin\go.bat"/></Filter></Filter>
+		<Filter Name="src" Filter="f90;for;f;fpp;ftn;def;odl;idl">
 		<File RelativePath=".\src\iric.f90"/>
 		<File RelativePath=".\src\main.f90"/></Filter>
-		<Filter Name="ヘッダーファイル" Filter="fi;fd;h;inc"/>
-		<Filter Name="設" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<File RelativePath=".\build.bat"/>
-		<File RelativePath=".\INSTALL\bin\definition.xml"/>
-		<File RelativePath=".\go.bat"/>
 		<File RelativePath=".\LICENSE"/>
 		<File RelativePath=".\make.bat"/>
 		<File RelativePath=".\README.md"/></Files>
