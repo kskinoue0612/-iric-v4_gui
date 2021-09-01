@@ -24,3 +24,5 @@ echo '%USERPROFILE%\iRIC_v4\private\solvers%folder%'
 mkdir %USERPROFILE%\iRIC_v4\private\solvers\%folder%
 echo 'copy solver files'
 copy /y .\* %USERPROFILE%\iRIC_v4\private\solvers\%folder%
+
+cd ..\..

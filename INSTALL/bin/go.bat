@@ -1,6 +1,6 @@
-call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" intel64 vs2019
-
-set PATH=%PATH%;%USERPROFILE%\iRIC_v4\guis\prepost\
+@echo off
+rem call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" intel64 vs2019
+rem set PATH=%PATH%;%USERPROFILE%\iRIC_v4\guis\prepost\
 
 set sname=solver.exe
 

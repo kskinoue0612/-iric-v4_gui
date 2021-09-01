@@ -17,7 +17,7 @@
     write(*,*) NARGS()
     if(NARGS() == 2) then
         call GETARG(1, filename)
-        write(*,*) filename
+        !write(*,*) trim(filename)
     else
         write(*,"(a)") "Error: no argument."
         write(*,"(a)") "usage: "
