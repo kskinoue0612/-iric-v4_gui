@@ -49,8 +49,9 @@
 		<File RelativePath=".\src\iric.f90"/>
 		<File RelativePath=".\src\main.f90"/></Filter>
 		<Filter Name="ヘッダーファイル" Filter="fi;fd;h;inc"/>
-		<Filter Name="リソースファイル" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
+		<Filter Name="設" Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"/>
 		<File RelativePath=".\build.bat"/>
+		<File RelativePath=".\INSTALL\bin\definition.xml"/>
 		<File RelativePath=".\go.bat"/>
 		<File RelativePath=".\LICENSE"/>
 		<File RelativePath=".\make.bat"/>
