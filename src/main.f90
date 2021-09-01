@@ -14,7 +14,7 @@
     integer :: fid, mode, ier
 !======================================================================
     write(*,'(a)') "---------- START Sample Solver ---------"
-    write(*,*) NARGS()
+    !write(*,*) NARGS()
     if(NARGS() == 2) then
         call GETARG(1, filename)
         !write(*,*) trim(filename)

@@ -37,7 +37,6 @@ rem the check type of execution and run
 echo # run exe
 %exe_dir%\%sname% %1
 
-echo --------------------------------------------------
 echo # End exe
 echo %date%_%time%
 
