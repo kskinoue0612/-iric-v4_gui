@@ -21,8 +21,8 @@ rem ----------------------------------------------------------------------
 set x=%~p0
 for %%1 in ("%x:~0,-1%") do set folder=%%~nx1
 echo '%USERPROFILE%\iRIC_v4\private\solvers%folder%'
-mkdir %USERPROFILE%\iRIC_v4\private\solvers\%folder%
+mkdir "%USERPROFILE%\iRIC_v4\private\solvers\%folder%"
 echo 'copy solver files'
-copy /y .\* %USERPROFILE%\iRIC_v4\private\solvers\%folder%
+copy /y .\* "%USERPROFILE%\iRIC_v4\private\solvers\%folder%"
 
 cd ..\..
