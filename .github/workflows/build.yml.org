@@ -115,6 +115,7 @@ jobs:
       shell: pwsh
       run: |
         Copy-Item .\${{env.SOURCE_DIR}}\INSTALL\bin\* .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\data\.
+        Copy-Item .\${{env.SOURCE_DIR}}\INSTALL\meta\* .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\.
         Set-Location online_update
         git status
 
