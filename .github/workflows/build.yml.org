@@ -95,7 +95,7 @@ jobs:
     #     "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" intel64 vs2019
     #     ctest -C ${{env.BUILD_TYPE}}
 
-    - name: Prepare solver package directories
+    - name: Copy to package data directory
       shell: pwsh
       run: |
         if (-Not (Test-Path .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\data)) {
@@ -104,16 +104,6 @@ jobs:
         if (-Not (Test-Path .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta)) {
           New-Item -Type Directory .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta
         }
-        if (-Not (Test-Path -Path .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\package.xml)) {
-          Copy-Item .\${{env.ONLINE_UPDATE_SRC_DIR_DEFAULT}}\packages\${{env.PACKAGE_DIR}}\meta\package.xml .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\.
-        }
-        if (-Not (Test-Path -Path .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\installscript.qs)) {
-          Copy-Item .\${{env.ONLINE_UPDATE_SRC_DIR_DEFAULT}}\packages\${{env.PACKAGE_DIR}}\meta\installscript.qs .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\.
-        }
-
-    - name: Copy to package data directory
-      shell: pwsh
-      run: |
         Copy-Item .\${{env.SOURCE_DIR}}\INSTALL\bin\* .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\data\.
         Copy-Item .\${{env.SOURCE_DIR}}\INSTALL\meta\* .\${{env.ONLINE_UPDATE_SRC_DIR}}\packages\${{env.PACKAGE_DIR}}\meta\.
         Set-Location online_update
