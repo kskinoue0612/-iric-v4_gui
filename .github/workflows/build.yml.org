@@ -8,7 +8,7 @@ on:
 
 env:
   # online_update directory
-  PACKAGE_DIR: PACKAGE_NAME
+  PACKAGE_DIR: solvers.PACKAGE_NAME
 
   # online_update src directory
   ONLINE_UPDATE_SRC_DIR: online_update\yasu_src                   # @todo simplify
@@ -132,12 +132,13 @@ jobs:
         # export environment variable IFW_VERSION for later steps
         Write-Output "IFW_VERSION=$($matches.major).$($matches.minor)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
-    - name: Run build_update_repository.py
+    - name: Run repogen
       shell: pwsh
       run: |
         Set-Location .\${{env.ONLINE_UPDATE_SRC_DIR}}\.
-        Write-Output "QT_IFW_PATH = 'C:\\Qt\\Tools\\QtInstallerFramework\\$env:IFW_VERSION'" > qt_ifw_path.py
-        python .\build_update_repository.py
+        $repogen = "C:\Qt\Tools\QtInstallerFramework\" + $env:IFW_VERSION + "\bin\repogen.exe"
+        $ifw_args = "-p packages --update --include " + $env:PACKAGE_DIR + " ..\yasu"
+        Start-Process -FilePath $repogen -Wait -ArgumentList $ifw_args
         Set-Location ..
         git add -A
         git status
