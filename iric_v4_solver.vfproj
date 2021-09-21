@@ -48,7 +48,10 @@
 		<Filter Name="INSTALL">
 		<Filter Name="bin">
 		<File RelativePath=".\INSTALL\bin\definition.xml"/>
-		<File RelativePath=".\INSTALL\bin\go.bat"/></Filter></Filter>
+		<File RelativePath=".\INSTALL\bin\go.bat"/></Filter>
+		<Filter Name="meta">
+		<File RelativePath=".\INSTALL\meta\installscript.qs"/>
+		<File RelativePath=".\INSTALL\meta\package.xml"/></Filter></Filter>
 		<Filter Name="src" Filter="f90;for;f;fpp;ftn;def;odl;idl">
 		<File RelativePath=".\src\iric.f90"/>
 		<File RelativePath=".\src\main.f90"/></Filter>
