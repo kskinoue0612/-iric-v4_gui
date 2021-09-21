@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\.github\\workflows",
+    "\\INSTALL",
+    "\\INSTALL\\meta",
+    "\\lib",
+    "\\src"
+  ],
+  "SelectedNode": "\\.github\\workflows\\build.yml.org",
+  "PreviewInSolutionExplorer": false
+}
