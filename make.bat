@@ -22,7 +22,7 @@ rem del /Q %USERPROFILE%\iRIC_v4\private\solvers\%sname%\*
 rem mkdir %USERPROFILE%\iRIC_v4\private\solvers\%sname%
 rem copy /y .\%sname%.exe %USERPROFILE%\iRIC_v4\private\solvers\%sname%
 rem copy /y .\definition.xml %USERPROFILE%\iRIC_v4\private\solvers\%sname%
-rem copy /y .\ts\* %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+rem copy /y .\ts\*.ts %USERPROFILE%\iRIC_v4\private\solvers\%sname%
 
 rem ----------------------------------------------------------------------
 rem copy files into the INASTALL dir
@@ -30,7 +30,7 @@ rem ----------------------------------------------------------------------
 del /Q .\INSTALL\bin\*
 copy /y .\%sname%.exe .\INSTALL\bin
 copy /y .\definition.xml .\INSTALL\bin
-copy /y .\ts\* .\INSTALL\bin
+copy /y .\ts\*.ts .\INSTALL\bin
 
 rem ----------------------------------------------------------------------
 rem update .github\workflows\build.yml
