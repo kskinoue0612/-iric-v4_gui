@@ -38,7 +38,7 @@ del /Q .github\workflows\build.yml
 
 
 setlocal disabledelayedexpansion
-rem set LF=^
+set LF=^
 
 set BEFORE_STRING=PACKAGE_NAME
 set AFTER_STRING=%sname%
