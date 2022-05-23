@@ -9,9 +9,9 @@ set public=Y
 rem ----------------------------------------------------------------------
 rem ifort compile
 rem ----------------------------------------------------------------------
-rem ifort .\src\iric.f90  /Qopenmp /nostandard-realloc-lhs /MD /c
-rem ifort .\src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
-rem ifort *.obj .\lib\iriclib.lib -o %sname%.exe
+ifort .\src\iric.f90  /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort .\src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort *.obj .\lib\iriclib.lib -o %sname%.exe
 del *.obj
 del *.mod
 
@@ -67,6 +67,7 @@ set OUTPUT_FILE=.\INSTALL\meta\installscript.qs
 
 setlocal enabledelayedexpansion
 for /f "delims=" %%a in (%INPUT_FILE%) do (
-set line=%%a
-echo !line:%BEFORE_STRING%=%AFTER_STRING%!>>%OUTPUT_FILE%
+  set line=%%a
+  set line=!line:%BEFORE_STRING%=%AFTER_STRING%!
+  echo !line!>>%OUTPUT_FILE%
 )
