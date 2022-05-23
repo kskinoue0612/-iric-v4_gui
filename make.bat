@@ -18,10 +18,11 @@ del *.mod
 rem ----------------------------------------------------------------------
 rem copy files into the iRIC folder
 rem ----------------------------------------------------------------------
-del /Q %USERPROFILE%\iRIC_v4\private\solvers%sname%*
-copy /y .\%sname%.exe %USERPROFILE%\iRIC_v4\private\solvers%sname%
-copy /y .\definition.xml %USERPROFILE%\iRIC_v4\private\solvers%sname%
-copy /y .\ts\* %USERPROFILE%\iRIC_v4\private\solvers%sname%
+del /Q %USERPROFILE%\iRIC_v4\private\solvers\%sname%\*
+mkdir %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+copy /y .\%sname%.exe %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+copy /y .\definition.xml %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+copy /y .\ts\* %USERPROFILE%\iRIC_v4\private\solvers\%sname%
 
 rem ----------------------------------------------------------------------
 rem copy files into the INASTALL dir
