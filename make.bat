@@ -9,9 +9,9 @@ set public=Y
 rem ----------------------------------------------------------------------
 rem ifort compile
 rem ----------------------------------------------------------------------
-ifort .\src\iric.f90  /Qopenmp /nostandard-realloc-lhs /MD /c
-ifort .\src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
-ifort *.obj .\lib\iriclib.lib -o %sname%.exe
+rem ifort .\src\iric.f90  /Qopenmp /nostandard-realloc-lhs /MD /c
+rem ifort .\src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
+rem ifort *.obj .\lib\iriclib.lib -o %sname%.exe
 del *.obj
 del *.mod
 
@@ -36,10 +36,6 @@ rem update .github\workflows\build.yml
 rem ----------------------------------------------------------------------
 del /Q .github\workflows\build.yml
 
-
-setlocal disabledelayedexpansion
-set LF=^
-
 set BEFORE_STRING=PACKAGE_NAME
 set AFTER_STRING=%sname%
 
@@ -51,10 +47,12 @@ set OUTPUT_FILE=.github\workflows\build.yml
 
 setlocal enabledelayedexpansion
 for /f "delims=" %%a in (%INPUT_FILE%) do (
-set line=%%a
-set line2=!line:%BEFORE_STRING%=%AFTER_STRING%!
-echo !line2:%BEFORE_STRING2%=%AFTER_STRING2%!>>%OUTPUT_FILE%
+  set line=%%a
+  set line=!line:%BEFORE_STRING%=%AFTER_STRING%!
+  set line=!line:%BEFORE_STRING2%=%AFTER_STRING2%!
+  echo !line!>>%OUTPUT_FILE%
 )
+
 
 rem ----------------------------------------------------------------------
 rem update INSATALL meta installscript.qs
