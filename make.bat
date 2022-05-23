@@ -72,3 +72,4 @@ for /f "delims=" %%a in (%INPUT_FILE%) do (
 set line=%%a
 echo !line:%BEFORE_STRING%=%AFTER_STRING%!>>%OUTPUT_FILE%
 )
+
