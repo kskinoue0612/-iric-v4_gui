@@ -34,7 +34,7 @@ copy /y .\ts\* .\INSTALL\bin
 
 rem ----------------------------------------------------------------------
 rem update .github\workflows\build.yml
-echo build.yml
+echo *** build.yml ***
 rem ----------------------------------------------------------------------
 del /Q .github\workflows\build.yml
 
@@ -58,7 +58,7 @@ for /f "delims=" %%a in (%INPUT_FILE%) do (
 
 rem ----------------------------------------------------------------------
 rem update INSATALL meta installscript.qs
-echo installscript.qs
+echo *** installscript.qs ***
 rem ----------------------------------------------------------------------
 del /Q .\INSTALL\meta\installscript.qs
 
