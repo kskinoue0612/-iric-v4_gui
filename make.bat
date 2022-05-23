@@ -18,10 +18,11 @@ del *.mod
 rem ----------------------------------------------------------------------
 rem copy files into the iRIC folder
 rem ----------------------------------------------------------------------
-del /Q %USERPROFILE%\iRIC_v4\private\solvers%sname%*
-copy /y .\%sname%.exe %USERPROFILE%\iRIC_v4\private\solvers%sname%
-copy /y .\definition.xml %USERPROFILE%\iRIC_v4\private\solvers%sname%
-copy /y .\ts\* %USERPROFILE%\iRIC_v4\private\solvers%sname%
+rem del /Q %USERPROFILE%\iRIC_v4\private\solvers\%sname%\*
+rem mkdir %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+rem copy /y .\%sname%.exe %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+rem copy /y .\definition.xml %USERPROFILE%\iRIC_v4\private\solvers\%sname%
+rem copy /y .\ts\* %USERPROFILE%\iRIC_v4\private\solvers\%sname%
 
 rem ----------------------------------------------------------------------
 rem copy files into the INASTALL dir
@@ -33,6 +34,7 @@ copy /y .\ts\* .\INSTALL\bin
 
 rem ----------------------------------------------------------------------
 rem update .github\workflows\build.yml
+echo build.yml
 rem ----------------------------------------------------------------------
 del /Q .github\workflows\build.yml
 
@@ -56,6 +58,7 @@ for /f "delims=" %%a in (%INPUT_FILE%) do (
 
 rem ----------------------------------------------------------------------
 rem update INSATALL meta installscript.qs
+echo installscript.qs
 rem ----------------------------------------------------------------------
 del /Q .\INSTALL\meta\installscript.qs
 
