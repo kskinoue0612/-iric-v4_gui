@@ -4,7 +4,7 @@ rem ----------------------------------------------------------------------
 rem set solver name
 rem ----------------------------------------------------------------------
 set sname=nays2dx
-set public=YES
+set public=Y
 
 rem ----------------------------------------------------------------------
 rem ifort compile
@@ -38,16 +38,16 @@ del /Q .github\workflows\build.yml
 
 rem 改行コード指定
 setlocal disabledelayedexpansion
-set LF=^
+rem set LF=^
 
 set BEFORE_STRING=PACKAGE_NAME
 set AFTER_STRING=%sname%
 
-set BEFORE_STRING2=PUBLICFLG
+set BEFORE_STRING2=PUBLIC_STAT
 set AFTER_STRING2=%public%
 
-set INPUT_FILE=.\.github\workflows\build.yml.org
-set OUTPUT_FILE=.\.github\workflows\build.yml
+set INPUT_FILE=.github\workflows\build.yml.org
+set OUTPUT_FILE=.github\workflows\build.yml
 
 setlocal enabledelayedexpansion
 for /f "delims=" %%a in (%INPUT_FILE%) do (

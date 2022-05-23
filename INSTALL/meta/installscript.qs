@@ -1,7 +1,6 @@
 function Component()
 {}
-
 Component.prototype.createOperationsForArchive = function(archive)
 {
-	component.addOperation("Extract", archive, "@TargetDir@/solvers/PACKAGE_NAME");
+	component.addOperation("Extract", archive, "@TargetDir@/solvers/nays2dx");
 }
