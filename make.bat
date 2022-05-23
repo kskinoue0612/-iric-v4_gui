@@ -36,7 +36,7 @@ rem update .github\workflows\build.yml
 rem ----------------------------------------------------------------------
 del /Q .github\workflows\build.yml
 
-rem 改行コード指定
+
 setlocal disabledelayedexpansion
 rem set LF=^
 
