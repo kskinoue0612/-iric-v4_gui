@@ -1,3 +1,5 @@
+@echo off
+
 call "C:\Program Files (x86)\Intel\oneAPI\setvars.bat" intel64 vs2019
 
 rem ----------------------------------------------------------------------
@@ -47,14 +49,18 @@ set AFTER_STRING2=%public%
 set INPUT_FILE=.github\workflows\build.yml.org
 set OUTPUT_FILE=.github\workflows\build.yml
 
-setlocal enabledelayedexpansion
+rem setlocal enabledelayedexpansion
 for /f "delims=" %%a in (%INPUT_FILE%) do (
-  set line=%%a
-  set line=!line:%BEFORE_STRING%=%AFTER_STRING%!
-  set line=!line:%BEFORE_STRING2%=%AFTER_STRING2%!
-  echo !line!>>%OUTPUT_FILE%
-)
 
+    set line=%%a
+
+    setlocal enabledelayedexpansion
+    rem echo !line!
+    set line=!line:%BEFORE_STRING%=%AFTER_STRING%!
+    set line=!line:%BEFORE_STRING2%=%AFTER_STRING2%!
+    echo !line!>>%OUTPUT_FILE%
+    endlocal
+)
 
 rem ----------------------------------------------------------------------
 rem update INSATALL meta installscript.qs
