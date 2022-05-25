@@ -76,6 +76,13 @@ jobs:
         start /b /wait %WINDOWS_HPCKIT_FILE% -s -x -f hpckit_extracted --log hpckit_extracted.log
         hpckit_extracted\bootstrapper.exe -s --action install --components=%WINDOWS_HPCKIT_COMPONENTS% --eula=accept --continue-with-optional-error=yes -p=NEED_VS2017_INTEGRATION=0 -p=NEED_VS2019_INTEGRATION=1 --log-dir=.
 
+    - name: Build program
+      if: ${{ env.BUILD == 'True' }}
+      shell: cmd
+      run: |
+        cd ${{env.WORK_DIR}}
+        .\make.bat
+
     - name: Download Qt Installer Framework
       shell: pwsh
       run: |

@@ -1,5 +1,5 @@
 {
     "solver_id": "test_solver1",
     "public": false,
-    "build": false
+    "build": true
 }
