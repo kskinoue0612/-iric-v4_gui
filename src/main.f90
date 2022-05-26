@@ -1,6 +1,6 @@
 !****************************************************************************************************
 !
-!   Sample program for the iRIC version4.0
+!   Sample program for the iRIC version 4
 !
 !****************************************************************************************************
     program samaple
@@ -9,7 +9,7 @@
     implicit none
     integer, parameter :: strmax = 1024
     
-    integer :: imin, imax, iout, i
+    integer :: imin, imax, iout, i, canceled
     character(len=strmax) :: filename
     integer :: fid, mode, ier
 !======================================================================
@@ -33,20 +33,26 @@
     iout = 100
     
     do i = imin, imax
+        call iric_check_cancel(canceled)
+        if canceled == 1 then
+            exit
+        end if
         
-        
-        
-        
-        
+        ! ここに、計算処理の実行処理を追加
+
         if(mod(i, iout) == 0) then
             write(*,*) "i = ", i
             
             ! output
-            
-            
-            
-            
+            call cg_iric_write_sol_start(fid, ier)
+
+            ! この間に計算結果の出力処理を追加
+
+            call cg_iric_write_sol_end(fid, ier)
         end if
+
+        ! iRIC GUIで再読み込みボタンが押されたかチェック
+        call cg_iric_check_update(fid, ier)
     end do
     
     call cg_iric_close(fid, ier)
