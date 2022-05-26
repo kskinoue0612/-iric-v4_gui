@@ -34,7 +34,7 @@
     
     do i = imin, imax
         call iric_check_cancel(canceled)
-        if canceled == 1 then
+        if (canceled == 1) then
             exit
         end if
         
