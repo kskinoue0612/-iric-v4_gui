@@ -2356,6 +2356,15 @@ contains
 
   end subroutine
 
+  subroutine cg_iric_check_update(fid, ier)
+    integer, intent(in):: fid
+    integer, intent(out):: ier
+
+    call cg_iric_check_update_f2c &
+      (fid, ier)
+
+  end subroutine
+
 
 
   ! from iriclib_init.h
@@ -2386,15 +2395,6 @@ contains
 
     call iric_initoption_f2c &
       (option, ier)
-
-  end subroutine
-
-  subroutine cg_iric_flush(fid, ier)
-    integer, intent(in):: fid
-    integer, intent(out):: ier
-
-    call cg_iric_flush_f2c &
-      (fid, ier)
 
   end subroutine
 
@@ -5053,6 +5053,24 @@ contains
 
     call cg_iric_read_sol_baseiterative_string_f2c &
       (fid, step, name, strvalue, ier)
+
+  end subroutine
+
+  subroutine cg_iric_write_sol_start(fid, ier)
+    integer, intent(in):: fid
+    integer, intent(out):: ier
+
+    call cg_iric_write_sol_start_f2c &
+      (fid, ier)
+
+  end subroutine
+
+  subroutine cg_iric_write_sol_end(fid, ier)
+    integer, intent(in):: fid
+    integer, intent(out):: ier
+
+    call cg_iric_write_sol_end_f2c &
+      (fid, ier)
 
   end subroutine
 
