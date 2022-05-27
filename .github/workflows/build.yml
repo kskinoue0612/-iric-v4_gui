@@ -7,7 +7,9 @@ on:
 env:
   # online_update src directory
   ONLINE_UPDATE_DEV_SRC_DIR: online_update_v4\dev_v4_src
+  ONLINE_UPDATE_DEV_DIR: online_update_v4\dev_v4
   ONLINE_UPDATE_PROD_SRC_DIR: online_update_v4\prod_v4_src
+  ONLINE_UPDATE_PROD_DIR: online_update_v4\prod_v4
 
   WORK_DIR: solver
 
@@ -50,7 +52,7 @@ jobs:
         Set-Location .\${{env.WORK_DIR}}
         $c = Get-Content 'config.json' | ConvertFrom-Json
         Write-Output "SOLVER_ID=$($c.solver_id)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-        Write-Output "PUBLIC=$($c.public)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Write-Output "STATUS=$($c.status)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         Write-Output "BUILD=$($c.build)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
     - name: Download latest iricsdk
@@ -99,7 +101,52 @@ jobs:
         # export environment variable IFW_VERSION for later steps
         Write-Output "IFW_VERSION=$($matches.major).$($matches.minor)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
+    - name: Delete from dev
+      if: ${{ env.STATUS == 'private' }}
+      shell: pwsh
+      run: |
+        # delete folders if exists
+        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\solver.${{env.SOLVER_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\solver.${{env.SOLVER_ID}} -recurse
+        }
+        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_DIR}}\solver.${{env.SOLVER_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_DEV_DIR}}\solver.${{env.SOLVER_ID}} -recurse
+        }
+        # delete item from Update.xml
+        $x = [XML](Get-Content .\${{env.ONLINE_UPDATE_DEV_DIR}}\Updates.xml)
+        $n = $x.SelectSingleNode("//Name[contains(text(), 'solver.${{env.SOLVER_ID}}')]/..")
+        if (-Not($n -eq $null)) {
+          $root = $x.Updates
+          $root.RemoveChild($n) | Out-Null
+          $x.OuterXml | Out-File .\${{env.ONLINE_UPDATE_PROD_DIR}}\Updates.xml
+        }
+        Set-Location .\online_update_v4
+        git add -A
+
+    - name: Delete from prod
+      if: ${{ env.STATUS == 'private' }}
+      shell: pwsh
+      run: |
+        # delete folders if exists
+        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\solver.${{env.SOLVER_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\solver.${{env.SOLVER_ID}} -recurse
+        }
+        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_DIR}}\solver.${{env.SOLVER_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_PROD_DIR}}\solver.${{env.SOLVER_ID}} -recurse
+        }
+        # delete item from Update.xml
+        $x = [XML](Get-Content .\${{env.ONLINE_UPDATE_PROD_DIR}}\Updates.xml)
+        $n = $x.SelectSingleNode("//Name[contains(text(), 'solver.${{env.SOLVER_ID}}')]/..")
+        if (-Not($n -eq $null)) {
+          $root = $x.Updates
+          $root.RemoveChild($n) | Out-Null
+          $x.OuterXml | Out-File .\${{env.ONLINE_UPDATE_PROD_DIR}}\Updates.xml
+        }
+        Set-Location .\online_update_v4
+        git add -A
+
     - name: Prepare data for dev
+      if: ${{ env.STATUS == 'public' || env.STATUS == 'develop' }}
       shell: pwsh
       run: |
         # copy folders if not exists
@@ -129,6 +176,7 @@ jobs:
 
 
     - name: Run repogen for dev
+      if: ${{ env.STATUS == 'public' || env.STATUS == 'develop' }}
       shell: pwsh
       run: |
         Set-Location .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\.
@@ -141,7 +189,7 @@ jobs:
         git status
 
     - name: Prepare data for prod
-      if: ${{ env.PUBLIC == 'True' }}
+      if: ${{ env.STATUS == 'public' }}
       shell: pwsh
       run: |
         # copy folders if not exists
@@ -170,7 +218,7 @@ jobs:
         git status
 
     - name: Run repogen for prod
-      if: ${{ env.PUBLIC == 'True' }}
+      if: ${{ env.STATUS == 'public' }}
       shell: pwsh
       run: |
         Set-Location .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\.
