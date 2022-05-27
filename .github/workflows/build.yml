@@ -118,7 +118,7 @@ jobs:
         if (-Not($n -eq $null)) {
           $root = $x.Updates
           $root.RemoveChild($n) | Out-Null
-          $x.OuterXml | Out-File .\${{env.ONLINE_UPDATE_PROD_DIR}}\Updates.xml
+          $x.OuterXml | Out-File .\${{env.ONLINE_UPDATE_DEV_DIR}}\Updates.xml
         }
         Set-Location .\online_update_v4
         git add -A
