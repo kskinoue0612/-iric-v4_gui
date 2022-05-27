@@ -124,7 +124,7 @@ jobs:
         git add -A
 
     - name: Delete from prod
-      if: ${{ env.STATUS == 'private' }}
+      if: ${{ env.STATUS == 'private' || env.STATUS == 'develop' }}
       shell: pwsh
       run: |
         # delete folders if exists
