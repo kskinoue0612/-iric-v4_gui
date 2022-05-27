@@ -45,7 +45,14 @@
 				<Tool Name="VFPostBuildEventTool"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
-		<Filter Name="install"/>
+		<Filter Name="install">
+		<File RelativePath="..\install\definition.xml"/>
+		<File RelativePath="..\install\translate_ja_JP.ts"/></Filter>
+		<Filter Name="src">
 		<File RelativePath=".\iric.f90"/>
-		<File RelativePath=".\main.f90"/></Files>
+		<File RelativePath=".\main.f90"/></Filter>
+		<File RelativePath="..\config.json"/>
+		<File RelativePath="..\LICENSE"/>
+		<File RelativePath="..\make.bat"/>
+		<File RelativePath="..\README.md"/></Files>
 	<Globals/></VisualStudioProject>
