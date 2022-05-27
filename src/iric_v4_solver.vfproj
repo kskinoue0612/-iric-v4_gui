@@ -16,7 +16,7 @@
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
 		<Configuration Name="Debug|x64">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" DebugInformationFormat="debugEnabled" Optimization="optimizeDisabled" WarnInterfaces="true" Traceback="true" BoundsCheck="true" StackFrameCheck="true" RuntimeLibrary="rtMultiThreadedDebugDLL"/>
-				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" AdditionalDependencies="./lib/iriclib.lib"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" GenerateDebugInformation="true" SubSystem="subSystemConsole" AdditionalDependencies="../lib/iriclib.lib"/>
 				<Tool Name="VFResourceCompilerTool"/>
 				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
 				<Tool Name="VFCustomBuildTool"/>
@@ -36,7 +36,7 @@
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration>
 		<Configuration Name="Release|x64">
 				<Tool Name="VFFortranCompilerTool" SuppressStartupBanner="true" RuntimeLibrary="rtMultiThreadedDLL"/>
-				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole" AdditionalDependencies="./lib/iriclib.lib"/>
+				<Tool Name="VFLinkerTool" LinkIncremental="linkIncrementalNo" SuppressStartupBanner="true" SubSystem="subSystemConsole" AdditionalDependencies="../lib/iriclib.lib"/>
 				<Tool Name="VFResourceCompilerTool"/>
 				<Tool Name="VFMidlTool" SuppressStartupBanner="true" TargetEnvironment="midlTargetAMD64"/>
 				<Tool Name="VFCustomBuildTool"/>
@@ -45,18 +45,7 @@
 				<Tool Name="VFPostBuildEventTool"/>
 				<Tool Name="VFManifestTool" SuppressStartupBanner="true"/></Configuration></Configurations>
 	<Files>
-		<Filter Name="INSTALL">
-		<Filter Name="bin">
-		<File RelativePath=".\INSTALL\bin\definition.xml"/>
-		<File RelativePath=".\INSTALL\bin\go.bat"/></Filter>
-		<Filter Name="meta">
-		<File RelativePath=".\INSTALL\meta\installscript.qs"/>
-		<File RelativePath=".\INSTALL\meta\package.xml"/></Filter></Filter>
-		<Filter Name="src" Filter="f90;for;f;fpp;ftn;def;odl;idl">
-		<File RelativePath=".\src\iric.f90"/>
-		<File RelativePath=".\src\main.f90"/></Filter>
-		<File RelativePath=".\build.bat"/>
-		<File RelativePath=".\LICENSE"/>
-		<File RelativePath=".\make.bat"/>
-		<File RelativePath=".\README.md"/></Files>
+		<Filter Name="install"/>
+		<File RelativePath=".\iric.f90"/>
+		<File RelativePath=".\main.f90"/></Files>
 	<Globals/></VisualStudioProject>
