@@ -5,19 +5,23 @@
 !****************************************************************************************************
     program samaple
     use iric
+    use global_variables
 
     implicit none
     integer, parameter :: strmax = 1024
     
-    integer :: imin, imax, iout, i, canceled
-    character(len=strmax) :: filename
-    integer :: fid, mode, ier
+    integer :: fid, ier
+    character(len=strmax) :: cgnsfile
+    
+    integer :: icount
+    
 !======================================================================
     write(*,'(a)') "---------- START Sample Solver ---------"
-    !write(*,*) NARGS()
-    if(NARGS() == 2) then
-        call GETARG(1, filename)
-        !write(*,*) trim(filename)
+    
+    ! get argument
+    if(iargc() == 1) then
+        call getarg(1, cgnsfile)
+        
     else
         write(*,"(a)") "Error: no argument."
         write(*,"(a)") "usage: "
@@ -25,37 +29,51 @@
         stop
     end if
     
+    ! open cgns file
+    call cg_iric_open(cgnsfile, IRIC_MODE_MODIFY, fid, ier)
     
-    call cg_iric_open(filename, IRIC_MODE_MODIFY, fid, ier)
+    ! set default
+    call set_default()
     
-    imin = 0
-    imax = 10000
-    iout = 100
+    ! read calculation conditions
+    call read_cgns(fid)
     
-    do i = imin, imax
-        call iric_check_cancel(canceled)
-        if (canceled == 1) then
+    ! set initial
+    call set_initial()
+    
+    ! start time loop
+    do icount = istime, ietime
+        
+        ! set time
+        ctime = icount * dt
+        
+        ! the update button is clicked or not
+        call cg_iric_check_update(fid, ier)
+        
+        ! the cancle button is clicked or not
+        call iric_check_cancel(ier)
+        if (ier == 1) then
+            write(*,*) ""
+            write(*,*) "solver stops because the cancel button was clicked."
             exit
         end if
         
-        ! ここに、計算処理の実行処理を追加
-
-        if(mod(i, iout) == 0) then
-            write(*,*) "i = ", i
-            
-            ! output
+        ! output result
+        if(mod(icount, ioutput) == 0) then
+            write(*,"(a7, f20.3, a)") "time = ", ctime, "[sec]"
             call cg_iric_write_sol_start(fid, ier)
-
-            ! この間に計算結果の出力処理を追加
-
+            call write_cgns(fid)
             call cg_iric_write_sol_end(fid, ier)
+            
         end if
-
-        ! iRIC GUIで再読み込みボタンが押されたかチェック
-        call cg_iric_check_update(fid, ier)
+        
+        ! calculation main code for one step        
+        call calc_main()
+        
     end do
     
+    ! close cgns file
     call cg_iric_close(fid, ier)
-    
+    write(*,*) ""
     write(*,'(a)') "---------- END: Sample Solver ---------"
     end program

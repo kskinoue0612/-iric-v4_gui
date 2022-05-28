@@ -49,8 +49,13 @@
 		<File RelativePath="..\install\definition.xml"/>
 		<File RelativePath="..\install\translate_ja_JP.ts"/></Filter>
 		<Filter Name="src">
+		<File RelativePath=".\calc_main.f90"/>
+		<File RelativePath=".\global_variables.f90"/>
 		<File RelativePath=".\iric.f90"/>
-		<File RelativePath=".\main.f90"/></Filter>
+		<File RelativePath=".\main.f90"/>
+		<File RelativePath=".\read_cgns.f90"/>
+		<File RelativePath=".\set_initial.f90"/>
+		<File RelativePath=".\write_cgns.f90"/></Filter>
 		<File RelativePath="..\config.json"/>
 		<File RelativePath="..\LICENSE"/>
 		<File RelativePath="..\make.bat"/>

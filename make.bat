@@ -6,6 +6,10 @@ rem ----------------------------------------------------------------------
 rem ifort compile
 rem ----------------------------------------------------------------------
 ifort .\src\iric.f90  /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort .\src\global_variables.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort .\src\read_cgns.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort .\src\write_cgns.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
+ifort .\src\calc_main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
 ifort .\src\main.f90 /Qopenmp /nostandard-realloc-lhs /MD /c
 ifort *.obj .\lib\iriclib.lib -o solver.exe
 del *.obj
