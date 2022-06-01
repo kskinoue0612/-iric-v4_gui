@@ -64,7 +64,6 @@
             call cg_iric_write_sol_start(fid, ier)
             call write_cgns(fid)
             call cg_iric_write_sol_end(fid, ier)
-            
         end if
         
         ! calculation main code for one step        

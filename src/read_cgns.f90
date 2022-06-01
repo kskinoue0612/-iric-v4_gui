@@ -10,8 +10,16 @@ subroutine read_cgns(fid)
     integer, intent(in) :: fid
     integer :: ier
     
-    integer :: n, count, ijsize, nodesize
-    integer, dimension(:,:), allocatable :: indices
+    integer :: n, count
+    integer :: ind_size, size
+    integer, dimension(:), allocatable :: indices
+    integer :: ii, jj
+    
+    integer :: esize
+    integer, dimension(:,:), allocatable :: edges
+    
+    integer :: nsize
+    real(8), dimension(:), allocatable :: xtmp, ytmp
     
     ! variables for time condition
     call cg_iric_read_real(fid, "dt", dt, ier)
@@ -25,6 +33,11 @@ subroutine read_cgns(fid)
     
     ! grid conditions
     call cg_iric_read_grid2d_str_size(fid, isize, jsize, ier)
+    if(ier /= 0)then
+        write(*,*) "Error: no grid data."
+        stop
+    end if
+    
     call alloc_variables(isize, jsize)
     call cg_iric_read_grid2d_coords(fid, xx, yy, ier)
     call cg_iric_read_grid_real_cell(fid, "elevation", zc, ier)
@@ -34,28 +47,22 @@ subroutine read_cgns(fid)
     ! boundary conditions
     call cg_iric_read_bc_count(fid, "inflow", count)
     do n = 1, count
-        call cg_iric_read_bc_indicessize(fid, "inflow", n, nodesize, ier)
         
-        
-        
-        
-    end do
-    
-    allocate(indices(2,nodesize))
-    do 
+        call cg_iric_read_bc_indicessize(fid, "inflow", n, size, ier)
+        allocate(indices(size*2))
         call cg_iric_read_bc_indices(fid, "inflow", n, indices, ier)
+        esize = size / 2
+        allocate(edges(2, esize))
+        do m = 1, esize
+            ii = 4 * (m - 1) + 1 ; jj = ii + 1
+            edges(1, m) = indices(ii)    !i-index
+            edges(2, m) = indices(jj)    !j-index
+        end do
+        
+        !read discharge function the bc id =n
+        call cg_iric_read_bc_functionalsize(fid, "inflow", n, "discharge", nsize, ier)    
+        allocate(xtmp(1:nsize), ytmp(1:nsize))
+        call cg_iric_read_bc_functional(fid, "inflow", n, "discharge", xtmp, ytmp, ier)
     end do
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    !call cg_iric_read_bc_count(fid, "outflow", num)
-    
-    
+
 end subroutine
