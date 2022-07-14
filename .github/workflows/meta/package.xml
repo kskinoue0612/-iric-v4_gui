@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <Package>
-	<DisplayName>SOLVER_NAME</DisplayName>
+	<DisplayName>GRIDGEN_NAME</DisplayName>
 	<Description></Description>
 	<Version>1.1.3</Version>
 	<Default>true</Default>
