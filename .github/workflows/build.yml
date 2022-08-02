@@ -51,7 +51,7 @@ jobs:
       run: |
         Set-Location .\${{env.WORK_DIR}}
         $c = Get-Content 'config.json' | ConvertFrom-Json
-        Write-Output "GRIDGEN_ID=${{github.repository_owner}}_${{github.event.repository.name}}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+        Write-Output "GUI_ID=${{github.repository_owner}}_${{github.event.repository.name}}" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         Write-Output "STATUS=$($c.status)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
         Write-Output "BUILD=$($c.build)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
 
@@ -106,15 +106,15 @@ jobs:
       shell: pwsh
       run: |
         # delete folders if exists
-        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}) {
-          Remove-Item .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}} -recurse
+        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}} -recurse
         }
-        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_DIR}}\gridcreator.${{env.GRIDGEN_ID}}) {
-          Remove-Item .\${{env.ONLINE_UPDATE_DEV_DIR}}\gridcreator.${{env.GRIDGEN_ID}} -recurse
+        if (Test-Path .\${{env.ONLINE_UPDATE_DEV_DIR}}\gui.${{env.GUI_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_DEV_DIR}}\gui.${{env.GUI_ID}} -recurse
         }
         # delete item from Update.xml
         $x = [XML](Get-Content .\${{env.ONLINE_UPDATE_DEV_DIR}}\Updates.xml)
-        $n = $x.SelectSingleNode("//Name[contains(text(), 'gridcreator.${{env.GRIDGEN_ID}}')]/..")
+        $n = $x.SelectSingleNode("//Name[contains(text(), 'gui.${{env.GUI_ID}}')]/..")
         if (-Not($n -eq $null)) {
           $root = $x.Updates
           $root.RemoveChild($n) | Out-Null
@@ -128,15 +128,15 @@ jobs:
       shell: pwsh
       run: |
         # delete folders if exists
-        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}) {
-          Remove-Item .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}} -recurse
+        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}} -recurse
         }
-        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_DIR}}\gridcreator.${{env.GRIDGEN_ID}}) {
-          Remove-Item .\${{env.ONLINE_UPDATE_PROD_DIR}}\gridcreator.${{env.GRIDGEN_ID}} -recurse
+        if (Test-Path .\${{env.ONLINE_UPDATE_PROD_DIR}}\gui.${{env.GUI_ID}}) {
+          Remove-Item .\${{env.ONLINE_UPDATE_PROD_DIR}}\gui.${{env.GUI_ID}} -recurse
         }
         # delete item from Update.xml
         $x = [XML](Get-Content .\${{env.ONLINE_UPDATE_PROD_DIR}}\Updates.xml)
-        $n = $x.SelectSingleNode("//Name[contains(text(), 'gridcreator.${{env.GRIDGEN_ID}}')]/..")
+        $n = $x.SelectSingleNode("//Name[contains(text(), 'gui.${{env.GUI_ID}}')]/..")
         if (-Not($n -eq $null)) {
           $root = $x.Updates
           $root.RemoveChild($n) | Out-Null
@@ -150,23 +150,23 @@ jobs:
       shell: pwsh
       run: |
         # copy folders if not exists
-        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data)) {
-          New-Item -Type Directory .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data
+        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data)) {
+          New-Item -Type Directory .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data
         }
-        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta)) {
-          New-Item -Type Directory .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta
+        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta)) {
+          New-Item -Type Directory .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta
         }
 
         # copy files
-        Copy-Item .\${{env.WORK_DIR}}\install\* .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data\.
-        Copy-Item .\${{env.WORK_DIR}}\.github\workflows\meta\* .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta\.
+        Copy-Item .\${{env.WORK_DIR}}\install\* .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data\.
+        Copy-Item .\${{env.WORK_DIR}}\.github\workflows\meta\* .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta\.
 
-        # replace GRIDGEN_ID in installscript.qs, GRIDGEN_NAME in package.xml
-        Set-Location ${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta
-        (Get-Content installscript.qs) -Replace 'GRIDGEN_ID', '${{env.GRIDGEN_ID}}' | Set-Content installscript.qs
+        # replace GUI_ID in installscript.qs, GUI_NAME in package.xml
+        Set-Location ${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta
+        (Get-Content installscript.qs) -Replace 'GUI_ID', '${{env.GUI_ID}}' | Set-Content installscript.qs
 
         $def = [XML](Get-Content ..\data\definition.xml)
-        (Get-Content package.xml) -Replace 'GRIDGEN_NAME', $def.GridGeneratorDefinition.caption | Set-Content package.xml
+        (Get-Content package.xml) -Replace 'GUI_NAME', $def.GuiDefinition.caption | Set-Content package.xml
 
         Set-Location ..\..\..
         python .\copy_release_and_version.py | Out-Null
@@ -181,10 +181,10 @@ jobs:
       run: |
         Set-Location .\${{env.ONLINE_UPDATE_DEV_SRC_DIR}}\.
         $repogen = "C:\Qt\Tools\QtInstallerFramework\" + $env:IFW_VERSION + "\bin\repogen.exe"
-        $ifw_args = "-p packages --update --include gridcreator." + $env:GRIDGEN_ID + " ..\dev_v4"
+        $ifw_args = "-p packages --update --include gui." + $env:GUI_ID + " ..\dev_v4"
         Start-Process -FilePath $repogen -Wait -ArgumentList $ifw_args
         Set-Location ..
-        git add dev_v4\gridcreator.${{env.GRIDGEN_ID}}
+        git add dev_v4\gui.${{env.GUI_ID}}
         git add -A
         git status
 
@@ -193,23 +193,23 @@ jobs:
       shell: pwsh
       run: |
         # copy folders if not exists
-        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data)) {
-          New-Item -Type Directory .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data
+        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data)) {
+          New-Item -Type Directory .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data
         }
-        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta)) {
-          New-Item -Type Directory .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta
+        if (-Not (Test-Path .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta)) {
+          New-Item -Type Directory .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta
         }
 
         # copy files
-        Copy-Item .\${{env.WORK_DIR}}\install\* .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\data\.
-        Copy-Item .\${{env.WORK_DIR}}\.github\workflows\meta\* .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta\.
+        Copy-Item .\${{env.WORK_DIR}}\install\* .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\data\.
+        Copy-Item .\${{env.WORK_DIR}}\.github\workflows\meta\* .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta\.
 
-        # replace GRIDGEN_ID in installscript.qs, GRIDGEN_NAME in package.xml
-        Set-Location ${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gridcreator.${{env.GRIDGEN_ID}}\meta
-        (Get-Content installscript.qs) -Replace 'GRIDGEN_ID', '${{env.GRIDGEN_ID}}' | Set-Content installscript.qs
+        # replace GUI_ID in installscript.qs, GUI_NAME in package.xml
+        Set-Location ${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\packages\gui.${{env.GUI_ID}}\meta
+        (Get-Content installscript.qs) -Replace 'GUI_ID', '${{env.GUI_ID}}' | Set-Content installscript.qs
 
         $def = [XML](Get-Content ..\data\definition.xml)
-        (Get-Content package.xml) -Replace 'GRIDGEN_NAME', $def.GridGeneratorDefinition.caption | Set-Content package.xml
+        (Get-Content package.xml) -Replace 'GUI_NAME', $def.GuiDefinition.caption | Set-Content package.xml
 
         Set-Location ..\..\..
         python .\copy_release_and_version.py | Out-Null
@@ -223,11 +223,11 @@ jobs:
       run: |
         Set-Location .\${{env.ONLINE_UPDATE_PROD_SRC_DIR}}\.
         $repogen = "C:\Qt\Tools\QtInstallerFramework\" + $env:IFW_VERSION + "\bin\repogen.exe"
-        $ifw_args = "-p packages --update --include gridcreator." + $env:GRIDGEN_ID + " ..\prod_v4"
+        $ifw_args = "-p packages --update --include gui." + $env:GUI_ID + " ..\prod_v4"
         Start-Process -FilePath $repogen -Wait -ArgumentList $ifw_args
 
         Set-Location ..
-        git add prod_v4\gridcreator.${{env.GRIDGEN_ID}}
+        git add prod_v4\gui.${{env.GUI_ID}}
         git add -A
         git status
 
